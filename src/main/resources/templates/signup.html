@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{common :: commonHead}">
+    <title>Sign Up</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">Sign Up</h2>
+
+    <div th:if="${emailExists}" class="alert alert-danger text-center">
+        이메일이 이미 존재합니다.
+    </div>
+
+    <form th:action="@{/signup}" th:object="${user}" method="post" class="mt-4">
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" th:field="*{email}" class="form-control" required/>
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" th:field="*{password}" class="form-control" required/>
+        </div>
+        <!-- ✅ 역할 선택 -->
+        <div class="mb-3">
+            <label>Role</label>
+            <select th:field="*{roleName}" class="form-control" required>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">회원가입</button>
+        </div>
+    </form>
+</div>
+<div th:insert="~{common :: commonScript}"></div>
+</body>
+</html>

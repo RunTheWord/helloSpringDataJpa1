@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head th:insert="~{common :: commonHead}">
   <title>Product Manager</title>
 </head>
-
 <body>
 <div class="container">
-  <h1 class="mt-5">Product List</h1>
-  <a class="btn btn-primary mb-3" th:href="@{/products/new}">Create New Product</a>
+
+  <!-- 우측 상단 관리자 페이지 버튼 -->
+  <div class="d-flex justify-content-end mt-3 mb-3" sec:authorize="hasRole('ADMIN')">
+    <a class="btn btn-outline-secondary" th:href="@{/admin/users}">관리자 페이지</a>
+  </div>
+
+  <h1 class="mt-3">Product List</h1>
+
+  <!-- ADMIN만 보이는 등록 버튼 -->
+  <div sec:authorize="hasRole('ADMIN')">
+    <a class="btn btn-primary mb-3" th:href="@{/products/new}">Create New Product</a>
+  </div>
 
   <table class="table table-bordered">
     <thead>
@@ -30,15 +39,22 @@
       <td th:text="${product.madeIn}">Made in</td>
       <td th:text="${product.price}">Price</td>
       <td>
-        <a class="btn btn-primary btn-sm" th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
-        <a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
+        <!-- ADMIN일 때 활성 버튼 -->
+        <div sec:authorize="hasRole('ADMIN')">
+          <a class="btn btn-primary btn-sm" th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
+          <a class="btn btn-danger btn-sm" th:href="@{'/products/delete/' + ${product.id}}">Delete</a>
+        </div>
+
+        <!-- USER일 때 비활성 버튼 (시각적으로 disabled) -->
+        <div sec:authorize="!hasRole('ADMIN')">
+          <a class="btn btn-primary btn-sm disabled" href="#" disabled>Edit</a>
+          <a class="btn btn-danger btn-sm disabled" href="#" disabled>Delete</a>
+        </div>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
-
-<!-- Bootstrap JS fragment 삽입 -->
 <div th:insert="~{common :: commonScript}"></div>
 </body>
 </html>

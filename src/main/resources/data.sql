@@ -24,3 +24,6 @@ insert into product (name, brand, made_in, price) values ('sienna', 'Honda', 'Ja
 
 insert into product (name, brand, made_in, price) values ('Camry', 'Toyota', 'Japan',  25000);
 insert into product (name, brand, made_in, price) values ('Lexus', 'Toyota', 'Japan',  50000);
+
+INSERT INTO roles (rolename) VALUES ('USER');
+INSERT INTO roles (rolename) VALUES ('ADMIN');
