@@ -26,11 +26,8 @@ public class SignupController {
             model.addAttribute("emailExists", true);
             return "signup";
         }
-
-        userService.registerUserWithSelectedRole(user);
-
-        // 로그인 페이지로 직접 이동하며 메시지를 모델에 포함
-        model.addAttribute("registeredMessage", "회원가입이 완료되었습니다. 로그인해주세요.");
+        userService.handleSubmission(user);
+        model.addAttribute("registeredMessage", "회원가입이 완료되었습니다.");
         return "login";
     }
 }

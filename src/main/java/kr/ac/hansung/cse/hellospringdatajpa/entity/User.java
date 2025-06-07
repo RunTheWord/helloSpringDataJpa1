@@ -17,9 +17,8 @@ public class User {
 
     private String email;
     private String password;
-    @Transient  // DB에는 저장하지 않고 폼 입력값으로만 받음
+    @Transient
     private String roleName;
-
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -27,5 +26,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<AuthRole> roles;
 }

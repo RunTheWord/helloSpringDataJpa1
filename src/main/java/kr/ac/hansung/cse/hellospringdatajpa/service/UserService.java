@@ -1,6 +1,6 @@
 package kr.ac.hansung.cse.hellospringdatajpa.service;
 
-import kr.ac.hansung.cse.hellospringdatajpa.entity.Role;
+import kr.ac.hansung.cse.hellospringdatajpa.entity.AuthRole;
 import kr.ac.hansung.cse.hellospringdatajpa.entity.User;
 import kr.ac.hansung.cse.hellospringdatajpa.repo.RoleRepository;
 import kr.ac.hansung.cse.hellospringdatajpa.repo.UserRepository;
@@ -27,9 +27,9 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public void registerUserWithSelectedRole(User user) {
-        Role role = roleRepository.findByRolename(user.getRoleName())
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+    public void handleSubmission(User user) {
+        AuthRole role = roleRepository.findByRolename(user.getRoleName())
+                .orElseThrow(() -> new IllegalArgumentException("지정한 역할이 존재하지 않습니다."));
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Set.of(role));

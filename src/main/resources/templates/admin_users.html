@@ -2,12 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{common :: commonHead}">
     <title>Admin - 사용자 목록</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .user-card-table {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .user-card-table table {
+            border-collapse: separate;
+            border-spacing: 0 12px;
+        }
+
+        .user-card-table th {
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .user-card-table td {
+            background-color: #ffffff;
+            vertical-align: middle;
+        }
+
+        .user-card-table tr:hover td {
+            background-color: #f1f3f5;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: #ffffff;
+            transition: 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+
+        .table td, .table th {
+            padding: 1rem;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="text-center mb-4">전체 사용자 목록</h2>
+<div class="container mt-5 user-card-table">
+    <h2 class="text-center mb-4">👤 전체 사용자 목록</h2>
 
-    <table class="table table-bordered">
+    <table class="table table-hover align-middle">
         <thead>
         <tr>
             <th>ID</th>
@@ -17,10 +64,10 @@
         </thead>
         <tbody>
         <tr th:each="user : ${userList}">
-            <td th:text="${user.id}"></td>
+            <td th:text="${user.id}" class="text-center"></td>
             <td th:text="${user.email}"></td>
             <td>
-                <ul>
+                <ul class="mb-0">
                     <li th:each="role : ${user.roles}" th:text="${role.rolename}"></li>
                 </ul>
             </td>
@@ -28,8 +75,8 @@
         </tbody>
     </table>
 
-    <div class="text-center mt-3">
-        <a class="btn btn-secondary" th:href="@{/products}">← 돌아가기</a>
+    <div class="text-center mt-4">
+        <a class="btn btn-back px-4 py-2" th:href="@{/products}">← 돌아가기</a>
     </div>
 </div>
 

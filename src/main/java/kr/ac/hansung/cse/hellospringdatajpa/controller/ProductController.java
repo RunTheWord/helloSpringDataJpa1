@@ -43,16 +43,11 @@ public class ProductController {
         return "edit_product";
     }
 
-    // @ModelAttribute는  Form data (예: name=Laptop&brand=Samsung&madeIn=Korea&price=1000.00)를 Product 객체
-    // @RequestBody는 HTTP 요청 본문에 포함된
-    //  JSON 데이터(예: {"name": "Laptop", "brand": "Samsung", "madeIn": "Korea", "price": 1000.00})를 Product 객체에 매핑
     @PostMapping("/save")
     public String saveProduct(@Valid @ModelAttribute("product") Product product,
-                              BindingResult result,
-                              Model model) {
-        if (result.hasErrors()) {
-            // id가 null이면 등록 폼, 아니면 수정 폼으로
-            return (product.getId() == null) ? "new_product" : "edit_product";
+                              BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "edit_product";
         }
 
         service.save(product);

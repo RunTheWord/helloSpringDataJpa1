@@ -16,7 +16,6 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    // 관리자만 접근 가능
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/users")
     public String viewUserList(Model model) {

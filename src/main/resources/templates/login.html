@@ -2,44 +2,91 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{common :: commonHead}">
     <title>Login</title>
+    <style>
+        body {
+            background-color: #f2f4f7;
+        }
+
+        .login-card {
+            max-width: 450px;
+            margin: 80px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .login-card h2 {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .alert {
+            font-size: 0.95rem;
+        }
+
+        .btn-login {
+            width: 100%;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5" style="max-width: 400px">
-    <h2 class="text-center">Login</h2>
+<div class="login-card">
+    <h2>로그인</h2>
 
     <!-- 회원가입 성공 메시지 -->
     <div th:if="${signupSuccess}" class="alert alert-success text-center">
-        회원가입이 완료되었습니다. 이제 로그인해주세요.
+        ✅ 회원가입이 완료되었습니다. 로그인해주세요.
     </div>
 
     <!-- 로그인 실패 메시지 -->
     <div th:if="${param.error}" class="alert alert-danger text-center">
-        이메일 또는 비밀번호가 잘못되었습니다.
+        ❌ 이메일 또는 비밀번호가 올바르지 않습니다.
     </div>
 
     <!-- 로그아웃 메시지 -->
-    <div th:if="${param.logout}" class="alert alert-success text-center">
-        성공적으로 로그아웃되었습니다.
+    <div th:if="${param.logout}" class="alert alert-info text-center">
+        🔒 성공적으로 로그아웃되었습니다.
     </div>
 
-    <form th:action="@{/login}" method="post" class="mt-4">
+    <form th:action="@{/login}" method="post">
         <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="username" class="form-control" placeholder="Enter email" required/>
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" id="email" name="username" class="form-control" placeholder="example@domain.com" required/>
         </div>
-        <div class="mb-3">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required/>
+        <div class="mb-4">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력" required/>
         </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">로그인</button>
-        </div>
+        <button type="submit" class="btn btn-primary btn-login">로그인</button>
     </form>
 
-    <div class="text-center mt-3">
-        <a th:href="@{/signup}">회원가입</a>
+    <div class="signup-link">
+        아직 계정이 없으신가요? <a th:href="@{/signup}">회원가입</a>
     </div>
 </div>
+
 <div th:insert="~{common :: commonScript}"></div>
 </body>
 </html>

@@ -2,37 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{common :: commonHead}">
     <title>Sign Up</title>
+    <style>
+        body {
+            background-color: #f5f7fa;
+        }
+
+        .signup-card {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-card h2 {
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .alert-danger {
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="text-center">Sign Up</h2>
+<div class="signup-card">
+    <h2 class="text-center">회원가입</h2>
 
     <div th:if="${emailExists}" class="alert alert-danger text-center">
-        이메일이 이미 존재합니다.
+        ⚠️ 이미 등록된 이메일입니다.
     </div>
 
-    <form th:action="@{/signup}" th:object="${user}" method="post" class="mt-4">
+    <form th:action="@{/signup}" th:object="${user}" method="post">
         <div class="mb-3">
-            <label>Email</label>
-            <input type="email" th:field="*{email}" class="form-control" required/>
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" required placeholder="example@domain.com" />
         </div>
+
         <div class="mb-3">
-            <label>Password</label>
-            <input type="password" th:field="*{password}" class="form-control" required/>
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password" required placeholder="8자 이상 입력" />
         </div>
-        <!-- ✅ 역할 선택 -->
-        <div class="mb-3">
-            <label>Role</label>
-            <select th:field="*{roleName}" class="form-control" required>
+
+        <div class="mb-4">
+            <label for="role" class="form-label">권한 선택</label>
+            <select th:field="*{roleName}" class="form-select" id="role" required>
+                <option value="" disabled selected>역할을 선택하세요</option>
                 <option value="USER">USER</option>
                 <option value="ADMIN">ADMIN</option>
             </select>
         </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">회원가입</button>
-        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit">가입하기</button>
     </form>
 </div>
+
 <div th:insert="~{common :: commonScript}"></div>
 </body>
 </html>
